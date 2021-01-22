@@ -117,10 +117,10 @@
     y: 0,
     z: 0,
   };
-  var chart0 = new Chart(ctx0, chartConfig([-180, 360]));
-  var chart1 = new Chart(ctx1, chartConfig([-5, 5]));
-  var chart2 = new Chart(ctx2, chartConfig([-20, 20]));
-  var chart3 = new Chart(ctx3, chartConfig([-200, 200]));
+  var chart0 = new Chart(ctx0, chartConfig([-200, 380]));
+  var chart1 = new Chart(ctx1, chartConfig([-10, 10]));
+  var chart2 = new Chart(ctx2, chartConfig([-30, 30]));
+  var chart3 = new Chart(ctx3, chartConfig([-250, 250]));
 
   window.addEventListener("devicemotion", (e) => {
     acceleration.x = e.acceleration.x;
