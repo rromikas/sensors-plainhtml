@@ -137,11 +137,9 @@
   });
 
   window.addEventListener("deviceorientation", (e) => {
-    if (e.orientation) {
-      orientation.x = e.beta;
-      orientation.y = e.gamma;
-      orientation.z = e.alpha;
-    }
+    orientation.x = e.beta;
+    orientation.y = e.gamma;
+    orientation.z = e.alpha;
   });
 
   window.setInterval(() => {
