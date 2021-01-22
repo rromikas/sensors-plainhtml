@@ -144,7 +144,7 @@
   });
 
   window.setInterval(() => {
-    console.log("orie", orientation);
+    console.log("orie", orientation, orientation.x, orientation.y);
     chart0.data.datasets[0].data.shift();
     chart0.data.datasets[0].data.push(orientation.x);
     chart0.data.datasets[1].data.shift();
