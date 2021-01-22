@@ -138,9 +138,9 @@
 
   window.addEventListener("deviceorientation", (e) => {
     console.log("ebet", e.beta, e.gamma, e.alpha);
-    orient.x = e.beta;
-    orient.y = e.gamma;
-    orient.z = e.alpha;
+    orient.x = e.beta || 0;
+    orient.y = e.gamma || 0;
+    orient.z = e.alpha || 0;
   });
 
   window.setInterval(() => {
