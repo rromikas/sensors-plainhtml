@@ -117,7 +117,7 @@
     y: 0,
     z: 0,
   };
-  var chart0 = new Chart(ctx0, chartConfig([-200, 200]));
+  var chart0 = new Chart(ctx0, chartConfig([-180, 360]));
   var chart1 = new Chart(ctx1, chartConfig([-5, 5]));
   var chart2 = new Chart(ctx2, chartConfig([-20, 20]));
   var chart3 = new Chart(ctx3, chartConfig([-200, 200]));
@@ -137,7 +137,7 @@
   });
 
   window.addEventListener("deviceorientation", (e) => {
-    console.log("ebet", e.beta, e.gamma, e.aplha);
+    console.log("ebet", e.beta, e.gamma, e.alpha);
     orientation.x = e.beta || 0;
     orientation.y = e.gamma || 0;
     orientation.z = e.alpha || 0;
