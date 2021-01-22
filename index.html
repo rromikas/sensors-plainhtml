@@ -131,15 +131,15 @@
     accelerationIncludingGravity.y = e.accelerationIncludingGravity.y;
     accelerationIncludingGravity.z = e.accelerationIncludingGravity.z;
 
-    rotationRate.x = e.rotationRate.x;
-    rotationRate.y = e.rotationRate.y;
-    rotationRate.z = e.rotationRate.z;
+    rotationRate.x = e.rotationRate.beta;
+    rotationRate.y = e.rotationRate.gamma;
+    rotationRate.z = e.rotationRate.alpha;
   });
 
   window.addEventListener("deviceorientation", (e) => {
-    orientation.x = e.orientation.x;
-    orientation.y = e.orientation.y;
-    orientation.z = e.orientation.z;
+    orientation.x = e.orientation.beta;
+    orientation.y = e.orientation.gamma;
+    orientation.z = e.orientation.alpha;
   });
 
   window.setInterval(() => {
