@@ -138,9 +138,9 @@
 
   window.addEventListener("deviceorientation", (e) => {
     if (e.orientation) {
-      orientation.x = e.orientation.beta;
-      orientation.y = e.orientation.gamma;
-      orientation.z = e.orientation.alpha;
+      orientation.x = e.beta;
+      orientation.y = e.gamma;
+      orientation.z = e.alpha;
     }
   });
 
