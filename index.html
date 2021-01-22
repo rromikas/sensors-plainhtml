@@ -112,7 +112,7 @@
     y: 0,
     z: 0,
   };
-  var orient = {
+  var _orientation = {
     x: 0,
     y: 0,
     z: 0,
@@ -137,20 +137,18 @@
   });
 
   window.addEventListener("deviceorientation", (e) => {
-    console.log("ebet", e.beta, e.gamma, e.alpha);
-    orient.x = e.beta || 0;
-    orient.y = e.gamma || 0;
-    orient.z = e.alpha || 0;
+    _orientation.x = e.beta || 0;
+    _orientation.y = e.gamma || 0;
+    _orientation.z = e.alpha || 0;
   });
 
   window.setInterval(() => {
-    console.log("orie", orient, orient.x, orient.y);
     chart0.data.datasets[0].data.shift();
-    chart0.data.datasets[0].data.push(orient.x);
+    chart0.data.datasets[0].data.push(_orientation.x);
     chart0.data.datasets[1].data.shift();
-    chart0.data.datasets[1].data.push(orient.y);
+    chart0.data.datasets[1].data.push(_orientation.y);
     chart0.data.datasets[2].data.shift();
-    chart0.data.datasets[2].data.push(orient.z);
+    chart0.data.datasets[2].data.push(_orientation.z);
 
     chart1.data.datasets[0].data.shift();
     chart1.data.datasets[0].data.push(acceleration.x);
