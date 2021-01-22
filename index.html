@@ -1,0 +1,179 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="index.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sensor-card">
+        <div style="font-weight: 600">Orientation</div>
+        <div class="chart-container">
+          <canvas id="myChart0"></canvas>
+        </div>
+      </div>
+      <div class="sensor-card">
+        <div style="font-weight: 600">Acceleration</div>
+        <div class="chart-container">
+          <canvas id="myChart1"></canvas>
+        </div>
+      </div>
+      <div class="sensor-card">
+        <div style="font-weight: 600">Acceleration including gravity</div>
+        <div class="chart-container">
+          <canvas id="myChart2"></canvas>
+        </div>
+      </div>
+      <div class="sensor-card">
+        <div style="font-weight: 600">Rotation rate</div>
+        <div class="chart-container">
+          <canvas id="myChart3"></canvas>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const chartConfig = (range) => {
+    return {
+      type: "line",
+      data: {
+        labels: new Array(50).fill(""),
+        datasets: [
+          {
+            label: "x",
+            data: new Array(50).fill(0),
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 1,
+            backgroundColor: "transparent",
+          },
+          {
+            label: "y",
+            data: new Array(50).fill(0),
+            borderColor: "deepskyblue",
+            borderWidth: 1,
+            backgroundColor: "transparent",
+          },
+          {
+            label: "z",
+            data: new Array(50).fill(0),
+            borderColor: "rebeccapurple",
+            borderWidth: 1,
+            backgroundColor: "transparent",
+          },
+        ],
+      },
+      yAxisID: Date.now(),
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              display: true,
+              stacked: true,
+              ticks: {
+                min: range[0], // minimum value
+                max: range[1], // maximum value
+              },
+            },
+          ],
+        },
+        elements: {
+          point: {
+            radius: 0,
+          },
+        },
+      },
+    };
+  };
+  var ctx0 = document.getElementById("myChart0").getContext("2d");
+  var ctx1 = document.getElementById("myChart1").getContext("2d");
+  var ctx2 = document.getElementById("myChart2").getContext("2d");
+  var ctx3 = document.getElementById("myChart3").getContext("2d");
+
+  var acceleration = {
+    x: 0,
+    y: 0,
+    z: 0,
+  };
+  var accelerationIncludingGravity = {
+    x: 0,
+    y: 0,
+    z: 0,
+  };
+  var rotationRate = {
+    x: 0,
+    y: 0,
+    z: 0,
+  };
+  var orientation = {
+    x: 0,
+    y: 0,
+    z: 0,
+  };
+  var chart0 = new Chart(ctx0, chartConfig([-200, 200]));
+  var chart1 = new Chart(ctx1, chartConfig([-5, 5]));
+  var chart2 = new Chart(ctx2, chartConfig([-20, 20]));
+  var chart3 = new Chart(ctx3, chartConfig([-200, 200]));
+
+  window.addEventListener("devicemotion", (e) => {
+    acceleration.x = e.acceleration.x;
+    acceleration.y = e.acceleration.y;
+    acceleration.z = e.acceleration.z;
+
+    accelerationIncludingGravity.x = e.accelerationIncludingGravity.x;
+    accelerationIncludingGravity.y = e.accelerationIncludingGravity.y;
+    accelerationIncludingGravity.z = e.accelerationIncludingGravity.z;
+
+    rotationRate.x = e.rotationRate.x;
+    rotationRate.y = e.rotationRate.y;
+    rotationRate.z = e.rotationRate.z;
+  });
+
+  window.addEventListener("deviceorientation", (e) => {
+    orientation.x = e.orientation.x;
+    orientation.y = e.orientation.y;
+    orientation.z = e.orientation.z;
+  });
+
+  window.setInterval(() => {
+    chart0.data.datasets[0].data.shift();
+    chart0.data.datasets[0].data.push(orientation.x);
+    chart0.data.datasets[1].data.shift();
+    chart0.data.datasets[1].data.push(orientation.y);
+    chart0.data.datasets[2].data.shift();
+    chart0.data.datasets[2].data.push(orientation.z);
+
+    chart1.data.datasets[0].data.shift();
+    chart1.data.datasets[0].data.push(acceleration.x);
+    chart1.data.datasets[1].data.shift();
+    chart1.data.datasets[1].data.push(acceleration.y);
+    chart1.data.datasets[2].data.shift();
+    chart1.data.datasets[2].data.push(acceleration.z);
+
+    chart2.data.datasets[0].data.shift();
+    chart2.data.datasets[0].data.push(accelerationIncludingGravity.x);
+    chart2.data.datasets[1].data.shift();
+    chart2.data.datasets[1].data.push(accelerationIncludingGravity.y);
+    chart2.data.datasets[2].data.shift();
+    chart2.data.datasets[2].data.push(accelerationIncludingGravity.z);
+
+    chart3.data.datasets[0].data.shift();
+    chart3.data.datasets[0].data.push(rotationRate.x);
+    chart3.data.datasets[1].data.shift();
+    chart3.data.datasets[1].data.push(rotationRate.y);
+    chart3.data.datasets[2].data.shift();
+    chart3.data.datasets[2].data.push(rotationRate.z);
+
+    chart0.update({ duration: 0 });
+    chart1.update({ duration: 0 });
+    chart2.update({ duration: 0 });
+    chart3.update({ duration: 0 });
+  }, 100);
+</script>
