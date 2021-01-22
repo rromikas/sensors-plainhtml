@@ -137,9 +137,11 @@
   });
 
   window.addEventListener("deviceorientation", (e) => {
-    orientation.x = e.orientation.beta;
-    orientation.y = e.orientation.gamma;
-    orientation.z = e.orientation.alpha;
+    if (e.orientation) {
+      orientation.x = e.orientation.beta;
+      orientation.y = e.orientation.gamma;
+      orientation.z = e.orientation.alpha;
+    }
   });
 
   window.setInterval(() => {
