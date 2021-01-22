@@ -137,6 +137,7 @@
   });
 
   window.addEventListener("deviceorientation", (e) => {
+    console.log("ebet", e.beta, e.gamma, e.aplha);
     orientation.x = e.beta || 0;
     orientation.y = e.gamma || 0;
     orientation.z = e.alpha || 0;
